@@ -64,15 +64,11 @@ class TextOnly:
             uni_embd_mat = dot([t_uni_embd, w_uni_mat], axes=1)
             uni_embd = Reshape((opt.embd_size, ))(uni_embd_mat)
 
-            embd_out1 = Dropout(rate=0.25)(uni_embd)
-            relu1 = Activation('relu', name='relu1')(embd_out1)
-            outputs1 = Dense(opt.embd_size, activation=activation)(relu1)
-			
-            embd_out2 = Dropout(rate=0.25)(outputs1)
-            relu2 = Activation('relu', name='relu2')(embd_out2)
-            outputs2 = Dense(num_classes, activation=activation)(relu2)
+            embd_out = Dropout(rate=0.25)(uni_embd)
+            relu = Activation('relu', name='relu1')(embd_out)
+            outputs = Dense(opt.embd_size, activation=activation)(relu)
 
-            model = Model(inputs=[t_uni, w_uni], outputs=outputs2)
+            model = Model(inputs=[t_uni, w_uni], outputs=outputs)
 
             plot_model(model, to_file='C:/Users/Yoon-sang/kakao_arena/shopping-classification/model1.png')
             plot_model(model, show_shapes=True, to_file='C:/Users/Yoon-sang/kakao_arena/shopping-classification/model2.png')

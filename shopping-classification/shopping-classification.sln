@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "shopping-classification", "shopping-classification\shopping-classification.pyproj", "{38F92683-FFFB-46C7-8F69-DD10E800A59D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38F92683-FFFB-46C7-8F69-DD10E800A59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F92683-FFFB-46C7-8F69-DD10E800A59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {194A066E-9D10-41B6-B6F1-E9B8115BF1C6}
+	EndGlobalSection
+EndGlobal

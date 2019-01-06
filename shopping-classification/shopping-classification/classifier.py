@@ -38,7 +38,8 @@ if six.PY2:
     cate1 = json.loads(open('C:/Users/Yoon-sang/kakao_arena/cate1.json').read())
 else:
     cate1 = json.loads(open('C:/Users/Yoon-sang/kakao_arena/cate1.json', 'rb').read().decode('utf-8'))
-DEV_DATA_LIST = ['D:/kakao_arena/dev.chunk.01']
+#DEV_DATA_LIST = ['D:/kakao_arena/dev.chunk.01']
+DEV_DATA_LIST = ['D:/kakao_arena/test.chunk.01', 'D:/kakao_arena/test.chunk.02']
 
 
 class Classifier():
@@ -68,7 +69,8 @@ class Classifier():
     def write_prediction_result(self, data, pred_y, meta, out_path, readable):
         pid_order = []
         for data_path in DEV_DATA_LIST:
-            h = h5py.File(data_path, 'r')['dev']
+            #h = h5py.File(data_path, 'r')['dev']
+            h = h5py.File(data_path, 'r')['test']
             pid_order.extend(h['pid'][::])
 
         y2l = {i: s for s, i in six.iteritems(meta['y_vocab'])}
