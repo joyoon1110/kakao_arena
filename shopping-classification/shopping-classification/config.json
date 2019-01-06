@@ -1,0 +1,32 @@
+{
+    "train_data_list": [
+        "D:/kakao_arena/train.chunk.01",
+		"D:/kakao_arena/train.chunk.02",
+		"D:/kakao_arena/train.chunk.03",
+		"D:/kakao_arena/train.chunk.04",
+		"D:/kakao_arena/train.chunk.05",
+		"D:/kakao_arena/train.chunk.06",
+		"D:/kakao_arena/train.chunk.07",
+		"D:/kakao_arena/train.chunk.08",
+		"D:/kakao_arena/train.chunk.09"
+    ],
+    "dev_data_list": [
+        "D:/kakao_arena/dev.chunk.01"
+    ],
+    "test_data_list": [
+        "D:/kakao_arena/test.chunk.01",
+        "D:/kakao_arena/test.chunk.02"
+    ],
+    "unigram_hash_size": 100000,
+    "min_word_length": 2,
+    "max_word_length": 31,
+    "max_len": 32,
+    "chunk_size": 20000,
+    "db_chunk_size": 100000,
+    "num_workers": 6,
+    "num_predict_workers": 2,
+    "embd_size": 256,
+    "lr": 0.002,
+    "num_epochs": 100,
+    "batch_size": 1024
+}
