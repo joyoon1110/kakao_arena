@@ -21,15 +21,11 @@ from keras.layers.merge import dot
 from keras.layers import Dense, Input
 from keras.layers.core import Reshape
 
-from keras.models import Sequential
-from keras.layers import Conv1D
-from keras import layers
-from keras.layers import Flatten
-from keras.layers import LSTM
-from keras.utils import plot_model
-
 from keras.layers.embeddings import Embedding
 from keras.layers.core import Dropout, Activation
+
+# 모델의 층 그래프 그리기 기능 추가
+from keras.utils import plot_model
 
 from misc import get_logger, Option
 opt = Option('C:/Users/Yoon-sang/kakao_arena/shopping-classification/config.json')
@@ -44,12 +40,12 @@ class TextOnly:
         self.logger = get_logger('textonly')
 
     def get_model(self, num_classes, activation='sigmoid'):
-	    # 사용할 텍스트의 길이 32
+	    # 사용할 텍스트의 길이 = 32
         max_len = opt.max_len
-		# 특성으로 사용할 단어 수 100000+1
+		# 특성으로 사용할 단어 수(voca_size) = 100000+1
         voca_size = opt.unigram_hash_size + 1
         
-		# embd_size = 128
+		# embd_size = 256
         with tf.device('/gpu:0'):
             embd = Embedding(voca_size,
                              opt.embd_size,
@@ -67,10 +63,11 @@ class TextOnly:
             embd_out = Dropout(rate=0.25)(uni_embd)
             relu = Activation('relu', name='relu1')(embd_out)
             outputs = Dense(opt.embd_size, activation=activation)(relu)
-
             model = Model(inputs=[t_uni, w_uni], outputs=outputs)
 
+            # 모델의 층 그래프 그리기 기능
             plot_model(model, to_file='C:/Users/Yoon-sang/kakao_arena/shopping-classification/model1.png')
+            # 모델의 층 그래프 그리기 기능(크기 정보 추가)
             plot_model(model, show_shapes=True, to_file='C:/Users/Yoon-sang/kakao_arena/shopping-classification/model2.png')
 
             optm = keras.optimizers.Nadam(opt.lr)

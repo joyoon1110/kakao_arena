@@ -25,10 +25,13 @@ import six
 
 from keras.models import load_model
 from keras.callbacks import ModelCheckpoint
+from six.moves import zip, cPickle
+
+# 콜백 사용하여 모델 훈련 과정 제어
 from keras.callbacks import EarlyStopping
 from keras.callbacks import ReduceLROnPlateau
+# 텐서플로 시각화
 from keras.callbacks import TensorBoard
-from six.moves import zip, cPickle
 
 from misc import get_logger, Option
 from network import TextOnly, top1_acc
@@ -39,6 +42,7 @@ if six.PY2:
 else:
     cate1 = json.loads(open('C:/Users/Yoon-sang/kakao_arena/cate1.json', 'rb').read().decode('utf-8'))
 #DEV_DATA_LIST = ['D:/kakao_arena/dev.chunk.01']
+# 최종 평가용 제출을 위한 테스트 데이터
 DEV_DATA_LIST = ['D:/kakao_arena/test.chunk.01', 'D:/kakao_arena/test.chunk.02']
 
 
@@ -70,6 +74,7 @@ class Classifier():
         pid_order = []
         for data_path in DEV_DATA_LIST:
             #h = h5py.File(data_path, 'r')['dev']
+            # 최종 평가용 제출을 위한 테스트 데이터
             h = h5py.File(data_path, 'r')['test']
             pid_order.extend(h['pid'][::])
 
@@ -148,10 +153,14 @@ class Classifier():
         self.logger.info('# of train samples: %s' % train['cate'].shape[0])
         self.logger.info('# of dev samples: %s' % dev['cate'].shape[0])
 
+        # 콜백 사용하여 모델 훈련 과정 제어
         callbacks_list = [
 					ModelCheckpoint(self.weight_fname, monitor='val_loss', save_best_only=True, mode='min', period=10),
+                    # 모니터링 지표(val_top1_acc)가 향상되지 않을 때 훈련 중지
 					EarlyStopping(monitor='val_top1_acc', patience=1,),
+                    # 검증 손실 향상되지 않을 때 학습률 조정
 					ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10,),
+                    # 훈련 모델의 내부에서 일어나는 것을 시각적으로 모니터링
 					TensorBoard(log_dir='C:/Users/Yoon-sang/kakao_arena/shopping-classification/my_log_dir', histogram_freq=0,)
 					]
 
